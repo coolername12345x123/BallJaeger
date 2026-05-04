@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balljäger</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Mode Selection -->
+  <div class="mode-select">
+    <div class="mode-title">☺︎ Balljäger</div>
+    <div class="mode-buttons">
+      <button class="mode-btn normal-btn" data-mode="normal">
+        Normal
+        <span>2–5 red squares</span>
+      </button>
+      <button class="mode-btn hard-btn" data-mode="hard">
+        Hard
+        <span>5–10 red squares</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Game -->
+  <div class="game" style="display:none">
+    <div class="numbers score">0</div>
+    <div class="mode-badge"></div>
+    <div class="ball start">☺︎</div>
+    <div class="numbers timer">60</div>
+    <button class="restart-btn" style="display:none">Nochmal spielen
+    </button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

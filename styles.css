@@ -1,0 +1,148 @@
+/* ── Base ── */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* ── Mode Selection Screen ── */
+.mode-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  height: 100%;
+  width: 100%;
+  background: #2f253f;
+}
+
+.mode-title {
+  color: #faaced;
+  font: bold clamp(2rem, 6vw, 4rem) arial;
+  text-align: center;
+}
+
+.mode-buttons {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 40px;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-family: arial;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 2px solid;
+  cursor: pointer;
+  color: #ffffff;
+  min-width: 180px;
+  transition: background 0.2s;
+}
+
+.mode-btn span {
+  font-size: 0.7em;
+  font-weight: normal;
+  margin-top: 4px;
+  opacity: 0.85;
+}
+
+.normal-btn { background: #7165dd; border-color: #2e2483; }
+.normal-btn:hover { background: #2e2483; }
+.hard-btn { background: rgba(255,81,81,0.85); border-color: rgb(255,81,81); }
+.hard-btn:hover { background: rgb(255,81,81); }
+
+/* ── Game Screen ── */
+.game {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: #2f253f;
+  position: relative;
+}
+
+.numbers {
+  width: 100%;
+  position: absolute;
+  color: #faaced;
+  font-size: 10vw;
+  font-family: arial;
+  text-align: center;
+  pointer-events: none;
+  line-height: 1.2;
+}
+
+.score { top: 10px; }
+.timer { bottom: 10px; }
+
+.mode-badge {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  color: #bd5ceb;
+  font: bold clamp(0.75rem, 1.5vw, 1rem) arial;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+
+.ball {
+  display: flex;
+  width: 10vw;
+  height: 10vw;
+  border-radius: 100%;
+  background: #faaced;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  line-height: 1;
+  user-select: none;
+  left: 46.5%;
+  top: 35%;
+  box-sizing: border-box;
+  border: 5px solid #bd5ceb;
+  transition: .2s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.ball.end {
+  pointer-events: none;
+}
+
+.red-square {
+  position: absolute;
+  background-color: rgb(255, 81, 81);
+  border-radius: 4px;
+  cursor: none;
+  z-index: 0;
+}
+
+.restart-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 28px;
+  font-size: 1.2rem;
+  background: #7165dd;
+  border: 2px solid #2e2483;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10;
+  color: #ffffff;
+  font-family: arial;
+  font-weight: bold;
+}
+
+.restart-btn:hover {
+  background: #2e2483;
+}
