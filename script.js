@@ -29,7 +29,7 @@ function moveBall(selection) {
         b = randomIntFromInterval(5, 25);
     size = Math.min(a, b); // biased toward small
   } else {
-    size = randomIntFromInterval(10, 30);
+    size = randomIntFromInterval(300,400);
   }
 
   $(selection).css({ left: left+"%", top: top+"%", height: size+"vw", width: size+"vw" });
