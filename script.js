@@ -58,7 +58,7 @@ function moveBall(selection) {
         b = randomIntFromInterval(5, 15);
     size = Math.min(a, b); 
   } else {
-    size = randomIntFromInterval(8, 12); // Kept it smaller as we discussed
+    size = randomIntFromInterval(10, 30);
   }
 
   $(selection).css({ left: left+"%", top: top+"%", height: size+"vmin", width: size+"vmin" });
