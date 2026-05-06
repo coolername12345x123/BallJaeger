@@ -29,10 +29,10 @@ function moveBall(selection) {
         b = randomIntFromInterval(5, 25);
     size = Math.min(a, b); // biased toward small
   } else {
-    size = randomIntFromInterval(4, 8);
+    size = randomIntFromInterval(10, 39);
   }
 
-  $(selection).css({ left: left+"%", top: top+"%", height: size+"vw", width: size+"vw" });
+  $(selection).css({ left: left+"%", top: top+"%", height: size+"vmin", width: size+"vmin" });
   return { left: left, top: top, size: size };
 }
 
