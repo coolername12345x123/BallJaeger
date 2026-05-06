@@ -5,7 +5,7 @@ var currentScore = 0,
     currentMode = "normal";
 
 // --- AUDIO SETUP ---
-var clickSound = new Audio("click.mp3");
+var clickSound = new Audio("./click.mp3");
 var audioCtx = null;
 var gainNode = null;
 
