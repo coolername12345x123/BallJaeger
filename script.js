@@ -4,6 +4,36 @@ var currentScore = 0,
     timer = null,
     currentMode = "normal";
 
+// --- AUDIO SETUP ---
+var clickSound = new Audio("click.mp3");
+var audioCtx = null;
+var gainNode = null;
+
+// This function sets up the "Booster" to hit 200% volume
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var source = audioCtx.createMediaElementSource(clickSound);
+    gainNode = audioCtx.createGain();
+    
+    gainNode.gain.value = 2; // This is your 200% volume boost
+    
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+  }
+  // Browsers require a user gesture to start audio
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+}
+
+function playClick() {
+  initAudio();
+  clickSound.currentTime = 0; // Resets sound so you can click fast
+  clickSound.play();
+}
+// --------------------
+
 var modeConfig = {
   normal: { min: 2, max: 5 },
   hard:   { min: 5, max: 10 }
@@ -18,25 +48,23 @@ function incrementScore() {
   $(".score").html(currentScore);
 }
 
-// Returns the new position so spawnRedSquares can use it
 function moveBall(selection) {
   var left = randomIntFromInterval(2, 75),
       top  = randomIntFromInterval(2, 75),
       size;
 
   if (currentMode === "hard") {
-    var a = randomIntFromInterval(5, 25),
-        b = randomIntFromInterval(5, 25);
-    size = Math.min(a, b); // biased toward small
+    var a = randomIntFromInterval(5, 15),
+        b = randomIntFromInterval(5, 15);
+    size = Math.min(a, b); 
   } else {
-    size = randomIntFromInterval(10, 39);
+    size = randomIntFromInterval(8, 12); // Kept it smaller as we discussed
   }
 
   $(selection).css({ left: left+"%", top: top+"%", height: size+"vmin", width: size+"vmin" });
   return { left: left, top: top, size: size };
 }
 
-// Uses the NEW ball position (not the transitioning DOM position)
 function spawnRedSquares(mouseX, mouseY, newBallPos) {
   $(".red-square").remove();
   var cfg   = modeConfig[currentMode];
@@ -87,7 +115,6 @@ function timerStart() {
   }, 1000);
 }
 
-// Mode select buttons
 $(".mode-btn").click(function () {
   currentMode = $(this).data("mode");
   $(".mode-badge").text(currentMode === "hard" ? "Hard" : "Normal");
@@ -95,8 +122,9 @@ $(".mode-btn").click(function () {
   $(".game").show();
 });
 
-// Ball click
+// --- UPDATED CLICK HANDLER ---
 $(".ball").click(function (e) {
+  playClick(); // Plays the sound
   incrementScore();
   var newPos = moveBall($(this));
   spawnRedSquares(e.clientX, e.clientY, newPos);
@@ -110,7 +138,6 @@ $(document).on("mouseenter", ".red-square", function () {
   if (started) endGame();
 });
 
-// Play Again → back to mode select
 $(".restart-btn").click(function () {
   currentScore = 0;
   currentTimer = 60;
