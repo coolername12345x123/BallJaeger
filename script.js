@@ -4,24 +4,22 @@ var currentScore = 0,
     timer = null,
     currentMode = "normal";
 
-// --- AUDIO SETUP ---
 var clickSound = new Audio("./click.mp3");
 var audioCtx = null;
 var gainNode = null;
 
-// This function sets up the "Booster" to hit 200% volume
+
 function initAudio() {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     var source = audioCtx.createMediaElementSource(clickSound);
     gainNode = audioCtx.createGain();
     
-    gainNode.gain.value = 2; // This is your 200% volume boost
+    gainNode.gain.value = 2; 
     
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
   }
-  // Browsers require a user gesture to start audio
   if (audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
@@ -29,10 +27,9 @@ function initAudio() {
 
 function playClick() {
   initAudio();
-  clickSound.currentTime = 0; // Resets sound so you can click fast
+  clickSound.currentTime = 0; 
   clickSound.play();
 }
-// --------------------
 
 var modeConfig = {
   normal: { min: 2, max: 5 },
@@ -99,10 +96,15 @@ function spawnRedSquares(mouseX, mouseY, newBallPos) {
   }
 }
 
-function endGame() {
+function endGame(reason) {
   $(".ball").addClass("end").hide();
   $(".red-square").remove();
-  $(".score").html("Verloren! <br/>Punkte: " + currentScore);
+  if (reason === "timeout") {
+    $(".score").html("Runde ist um! <br/>Punkte: " + currentScore);
+  } else {
+    $(".score").html("Verloren! <br/>Punkte: " + currentScore);
+  }
+  
   clearInterval(timer);
   $(".restart-btn").show();
 }
@@ -111,7 +113,10 @@ function timerStart() {
   timer = setInterval(function () {
     currentTimer--;
     $(".timer").html(currentTimer);
-    if (currentTimer < 1) { clearInterval(timer); endGame(); }
+    if (currentTimer < 1) { 
+      clearInterval(timer); 
+      endGame("timeout"); 
+    }
   }, 1000);
 }
 
@@ -122,7 +127,6 @@ $(".mode-btn").click(function () {
   $(".game").show();
 });
 
-// --- UPDATED CLICK HANDLER ---
 $(".ball").click(function (e) {
   playClick(); // Plays the sound
   incrementScore();
@@ -135,7 +139,7 @@ $(".start").click(function () {
 });
 
 $(document).on("mouseenter", ".red-square", function () {
-  if (started) endGame();
+  if (started) endGame("hit");
 });
 
 $(".restart-btn").click(function () {
