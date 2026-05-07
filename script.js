@@ -128,7 +128,7 @@ $(".mode-btn").click(function () {
 });
 
 $(".ball").click(function (e) {
-  playClick(); // Plays the sound
+  playClick();
   incrementScore();
   var newPos = moveBall($(this));
   spawnRedSquares(e.clientX, e.clientY, newPos);
